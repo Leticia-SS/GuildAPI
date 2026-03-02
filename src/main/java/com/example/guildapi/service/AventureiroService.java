@@ -68,8 +68,4 @@ public class AventureiroService {
         aventureiro.get().setCompanheiro(null);
         aventureiroRepository.save(aventureiro.get());
     }
-
-
-
-
 }
