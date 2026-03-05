@@ -42,7 +42,7 @@ public class AventureiroController {
     @PostMapping("/{id}")
     public ResponseEntity<?> atualizarAventureiro(@PathVariable Integer id, @RequestBody Aventureiro novoAventureiro) {
         Optional<Aventureiro> aventureiro = aventureiroService.listarAventureiroPorId(id);
-        if (aventureiro == null) {
+        if (aventureiro.isEmpty()) {
             return new ResponseEntity<>("ERRO: Aventureiro não encontrado", HttpStatus.NOT_FOUND);
         }
         aventureiroService.atualizarAventureiro(id, novoAventureiro);
