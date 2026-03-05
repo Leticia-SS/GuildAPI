@@ -24,6 +24,10 @@ public class AventureiroService {
         return aventureiroRepository.findById(id);
     }
 
+    public void adicionarAventureiro(Aventureiro aventureiro){
+        aventureiroRepository.save(aventureiro);
+    }
+
     public void atualizarAventureiro(Integer id, Aventureiro novoAventureiro){
         Optional<Aventureiro> aventureiro = aventureiroRepository.findById(id);
         if (aventureiro.isPresent()){

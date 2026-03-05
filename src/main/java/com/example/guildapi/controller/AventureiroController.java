@@ -4,10 +4,7 @@ import com.example.guildapi.model.Aventureiro;
 import com.example.guildapi.service.AventureiroService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +31,22 @@ public class AventureiroController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Erro: aventureiro não encontrado");
         }
         return ResponseEntity.ok(aventureiro.get());
+    }
+
+    @PostMapping()
+    public String cadastrarAventureiro(@RequestBody Aventureiro aventureiro){
+        aventureiroService.adicionarAventureiro(aventureiro);
+        return "Aventureiro cadastrado";
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<?> atualizarAventureiro(@PathVariable Integer id, @RequestBody Aventureiro novoAventureiro) {
+        Optional<Aventureiro> aventureiro = aventureiroService.listarAventureiroPorId(id);
+        if (aventureiro == null) {
+            return new ResponseEntity<>("ERRO: Aventureiro não encontrado", HttpStatus.NOT_FOUND);
+        }
+        aventureiroService.atualizarAventureiro(id, novoAventureiro);
+        return new ResponseEntity<>(novoAventureiro, HttpStatus.OK);
     }
 
 
