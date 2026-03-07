@@ -2,6 +2,7 @@ package com.example.guildapi.service;
 
 import com.example.guildapi.model.Aventureiro;
 import com.example.guildapi.model.Companheiro;
+import com.example.guildapi.model.Enum.ClasseEnum;
 import com.example.guildapi.repository.IAventureiroRepository;
 import org.springframework.stereotype.Service;
 
@@ -28,17 +29,19 @@ public class AventureiroService {
         aventureiroRepository.save(aventureiro);
     }
 
-    public void atualizarAventureiro(Integer id, Aventureiro novoAventureiro){
+    public void atualizarAventureiro(Integer id, String nome, ClasseEnum classe, Integer nivel){
         Optional<Aventureiro> aventureiro = aventureiroRepository.findById(id);
-        if (aventureiro.isPresent()){
-            if (novoAventureiro.getNome() != null){
-                aventureiro.get().setNome(novoAventureiro.getNome());
+        if (aventureiro.isPresent()) {
+            if (nome != null) {
+                aventureiro.get().setNome(nome);
             }
-            if (novoAventureiro.getClasse() != null){
-                aventureiro.get().setClasse(novoAventureiro.getClasse());
+
+            if (classe != null) {
+                aventureiro.get().setClasse(classe);
             }
-            if (novoAventureiro.getNivel() != null){
-                aventureiro.get().setNivel(novoAventureiro.getNivel());
+
+            if (nivel != null) {
+                aventureiro.get().setNivel(nivel);
             }
             aventureiroRepository.save(aventureiro.get());
         }
@@ -67,7 +70,7 @@ public class AventureiroService {
         aventureiroRepository.save(aventureiro.get());
     }
 
-    public void deletarCompanheiro(Integer id, Companheiro companheiro) {
+    public void deletarCompanheiro(Integer id) {
         Optional<Aventureiro> aventureiro = aventureiroRepository.findById(id);
         aventureiro.get().setCompanheiro(null);
         aventureiroRepository.save(aventureiro.get());
