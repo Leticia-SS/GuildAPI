@@ -71,7 +71,7 @@ public class AventureiroController {
     }
 
     // Requests Companheiro
-    @PatchMapping("/{id}/companheiro")
+    @PatchMapping("/{id}/adicionarCompanheiro")
     public ResponseEntity<?> adicionarCompanheiro(@PathVariable Integer id ,@RequestBody Companheiro companheiro) {
         Optional<Aventureiro> aventureiro = aventureiroService.listarAventureiroPorId(id);
         if (aventureiro.isEmpty()) {
