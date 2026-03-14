@@ -21,8 +21,7 @@ public class AventureiroController {
 
     @GetMapping
     public ResponseEntity<List<Aventureiro>> listarTodos(@RequestHeader(value = "X-Page", defaultValue = "0") int page, @RequestHeader(value = "X-Size" , defaultValue = "10") int size){
-        List<Aventureiro> aventureiros = aventureiroService.listarAventureiros();
-        return ResponseEntity.ok(aventureiros);
+        return ResponseEntity.ok(aventureiroService.paginar(aventureiroService.listarAventureiros(),page,size));
     }
 
     @GetMapping("/{id}")
