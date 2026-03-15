@@ -39,9 +39,9 @@ public class AventureiroController {
     }
 
     @PostMapping()
-    public String cadastrarAventureiro(@RequestBody Aventureiro aventureiro){
+    public ResponseEntity<?> cadastrarAventureiro(@RequestBody Aventureiro aventureiro){
         aventureiroService.adicionarAventureiro(aventureiro);
-        return "Aventureiro cadastrado";
+        return ResponseEntity.ok("Aventureiro cadastrado");
     }
 
     @PatchMapping("/{id}")
