@@ -27,11 +27,8 @@ public class AventureiroController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> listarAventureiro(@PathVariable Integer id) {
-        Optional<Aventureiro> aventureiro = aventureiroService.listarAventureiroPorId(id);
-        if (aventureiro.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Erro: aventureiro não encontrado");
-        }
-        return ResponseEntity.ok(aventureiro.get());
+        Aventureiro aventureiro = aventureiroService.listarAventureiroPorId(id);
+        return ResponseEntity.status(HttpStatus.OK).body(aventureiro);
     }
 
     @PostMapping()
@@ -42,18 +39,18 @@ public class AventureiroController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<?> atualizarAventureiro(@PathVariable Integer id, @RequestBody Aventureiro aventureiroDados) {
-        Optional<Aventureiro> aventureiro = aventureiroService.listarAventureiroPorId(id);
-        if (aventureiro.isEmpty()) {
+        Aventureiro aventureiro = aventureiroService.listarAventureiroPorId(id);
+        if (aventureiro==null) {
             return new ResponseEntity<>("ERRO: Aventureiro não encontrado", HttpStatus.NOT_FOUND);
         }
         aventureiroService.atualizarAventureiro(id, aventureiroDados.getNome(), aventureiroDados.getClasse(), aventureiroDados.getNivel());
-        return new ResponseEntity<>(aventureiroService.listarAventureiroPorId(id).get(), HttpStatus.OK);
+        return new ResponseEntity<>(aventureiroService.listarAventureiroPorId(id), HttpStatus.OK);
     }
 
     @PatchMapping("/{id}/encerrar")
     public ResponseEntity<?> encerrarAventureiro(@PathVariable Integer id) {
-        Optional<Aventureiro> aventureiro = aventureiroService.listarAventureiroPorId(id);
-        if (aventureiro.isEmpty()) {
+        Aventureiro aventureiro = aventureiroService.listarAventureiroPorId(id);
+        if (aventureiro==null) {
             return new ResponseEntity<>("ERRO: Aventureiro não encontrado", HttpStatus.NOT_FOUND);
         }
         aventureiroService.desativarAventureiro(id);
@@ -62,8 +59,8 @@ public class AventureiroController {
 
     @PatchMapping("/{id}/recrutar")
     public ResponseEntity<?> recturarAventureiro(@PathVariable Integer id) {
-        Optional<Aventureiro> aventureiro = aventureiroService.listarAventureiroPorId(id);
-        if (aventureiro.isEmpty()) {
+        Aventureiro aventureiro = aventureiroService.listarAventureiroPorId(id);
+        if (aventureiro==null) {
             return new ResponseEntity<>("ERRO: Aventureiro não encontrado", HttpStatus.NOT_FOUND);
         }
         aventureiroService.ativarAventureiro(id);
@@ -73,11 +70,11 @@ public class AventureiroController {
     // Requests Companheiro
     @PatchMapping("/{id}/adicionarCompanheiro")
     public ResponseEntity<?> adicionarCompanheiro(@PathVariable Integer id ,@RequestBody Companheiro companheiro) {
-        Optional<Aventureiro> aventureiro = aventureiroService.listarAventureiroPorId(id);
-        if (aventureiro.isEmpty()) {
+        Aventureiro aventureiro = aventureiroService.listarAventureiroPorId(id);
+        if (aventureiro==null) {
             return new ResponseEntity<>("ERRO: Aventureiro não encontrado", HttpStatus.FORBIDDEN);
         }
-        if (aventureiro.get().getCompanheiro() != null) {
+        if (aventureiro.getCompanheiro() != null) {
             return new ResponseEntity<>("ERRO: Aventureiro já possui um companheiro", HttpStatus.FORBIDDEN);
         }
         aventureiroService.adicionarCompanheiro(id, companheiro);
@@ -86,8 +83,8 @@ public class AventureiroController {
 
     @PatchMapping("/{id}/removerCompanheiro")
     public ResponseEntity<?> removerCompanheiro(@PathVariable Integer id){
-        Optional<Aventureiro> aventureiro = aventureiroService.listarAventureiroPorId(id);
-        if (aventureiro.isEmpty()) {
+        Aventureiro aventureiro = aventureiroService.listarAventureiroPorId(id);
+        if (aventureiro==null) {
             return new ResponseEntity<>("ERRO: Aventureiro não encontrado", HttpStatus.FORBIDDEN);
         }
         aventureiroService.deletarCompanheiro(id);
