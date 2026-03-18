@@ -21,6 +21,13 @@ public class AventureiroService {
         return aventureiroRepository.findAll();
     }
 
+    public List<Aventureiro> paginar(List<Aventureiro> base, int page, int size) {
+        int total = base.size();
+        int from = page * size;
+        int to = Math.min(from + size, total);
+        return base.subList(from,to);
+    }
+
     public Optional<Aventureiro> listarAventureiroPorId(Integer id) {
         return aventureiroRepository.findById(id);
     }
