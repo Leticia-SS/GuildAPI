@@ -1,28 +1,28 @@
 package com.example.guildapi.service;
 
-import com.example.guildapi.exceptions.EntityNotFoundException;
 import com.example.guildapi.model.Aventureiro;
 import com.example.guildapi.model.Companheiro;
 import com.example.guildapi.model.Enum.ClasseEnum;
 import com.example.guildapi.repository.IAventureiroRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
 public class AventureiroService {
     private final IAventureiroRepository aventureiroRepository;
+
+    public AventureiroService(IAventureiroRepository aventureiroRepository) {
+        this.aventureiroRepository = aventureiroRepository;
+    }
 
     public List<Aventureiro> listarAventureiros(){
         return aventureiroRepository.findAll();
     }
 
-    public Aventureiro listarAventureiroPorId(Integer id) {
-        return aventureiroRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException("Aventureiro não encontrado"));
+    public Optional<Aventureiro> listarAventureiroPorId(Integer id) {
+        return aventureiroRepository.findById(id);
     }
 
     public void adicionarAventureiro(Aventureiro aventureiro){

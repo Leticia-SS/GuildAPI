@@ -21,8 +21,12 @@ public class AventureiroController {
 
     @GetMapping
     public ResponseEntity<List<Aventureiro>> listarTodos(@RequestHeader(value = "X-Page", defaultValue = "0") int page, @RequestHeader(value = "X-Size" , defaultValue = "10") int size){
+        //return ResponseEntity.ok(aventureiroService.paginar(aventureiroService.listarAventureiros(),page,size));
         List<Aventureiro> aventureiros = aventureiroService.listarAventureiros();
-        return ResponseEntity.ok(aventureiros);
+        return ResponseEntity.status(HttpStatus.OK)
+                .header("X-Page", String.valueOf(page))
+                .header("X-Size",String.valueOf(size))
+                .body(aventureiroService.paginar(aventureiros,page,size));
     }
 
     @GetMapping("/{id}")
@@ -32,9 +36,9 @@ public class AventureiroController {
     }
 
     @PostMapping()
-    public String cadastrarAventureiro(@RequestBody Aventureiro aventureiro){
+    public ResponseEntity<?> cadastrarAventureiro(@RequestBody Aventureiro aventureiro){
         aventureiroService.adicionarAventureiro(aventureiro);
-        return "Aventureiro cadastrado";
+        return ResponseEntity.ok("Aventureiro cadastrado");
     }
 
     @PatchMapping("/{id}")
