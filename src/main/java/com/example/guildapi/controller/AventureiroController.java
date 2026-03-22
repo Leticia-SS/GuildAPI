@@ -3,6 +3,7 @@ package com.example.guildapi.controller;
 import com.example.guildapi.model.Aventureiro;
 import com.example.guildapi.model.Companheiro;
 import com.example.guildapi.service.AventureiroService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +12,10 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/aventureiros")
 public class AventureiroController {
     private final AventureiroService aventureiroService;
-
-    public AventureiroController(AventureiroService aventureiroService) {
-        this.aventureiroService = aventureiroService;
-    }
 
     @GetMapping
     public ResponseEntity<List<Aventureiro>> listarTodos(@RequestHeader(value = "X-Page", defaultValue = "0") int page, @RequestHeader(value = "X-Size" , defaultValue = "10") int size){
@@ -25,7 +23,7 @@ public class AventureiroController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> listarAventureiro(@PathVariable Integer id) {
+    public ResponseEntity<?> listarAventureiro(@PathVariable Long id) {
         Optional<Aventureiro> aventureiro = aventureiroService.listarAventureiroPorId(id);
         return ResponseEntity.status(HttpStatus.OK).body(aventureiro.get());
     }
@@ -37,7 +35,7 @@ public class AventureiroController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> atualizarAventureiro(@PathVariable Integer id, @RequestBody Aventureiro aventureiroDados) {
+    public ResponseEntity<?> atualizarAventureiro(@PathVariable Long id, @RequestBody Aventureiro aventureiroDados) {
         Optional<Aventureiro> aventureiro = aventureiroService.listarAventureiroPorId(id);
         if (aventureiro.isEmpty()) {
             return new ResponseEntity<>("ERRO: Aventureiro não encontrado", HttpStatus.NOT_FOUND);
@@ -47,7 +45,7 @@ public class AventureiroController {
     }
 
     @PatchMapping("/{id}/encerrar")
-    public ResponseEntity<?> encerrarAventureiro(@PathVariable Integer id) {
+    public ResponseEntity<?> encerrarAventureiro(@PathVariable Long id) {
         Optional<Aventureiro> aventureiro = aventureiroService.listarAventureiroPorId(id);
         if (aventureiro.isEmpty()) {
             return new ResponseEntity<>("ERRO: Aventureiro não encontrado", HttpStatus.NOT_FOUND);
@@ -57,7 +55,7 @@ public class AventureiroController {
     }
 
     @PatchMapping("/{id}/recrutar")
-    public ResponseEntity<?> recturarAventureiro(@PathVariable Integer id) {
+    public ResponseEntity<?> recturarAventureiro(@PathVariable Long id) {
         Optional<Aventureiro> aventureiro = aventureiroService.listarAventureiroPorId(id);
         if (aventureiro.isEmpty()) {
             return new ResponseEntity<>("ERRO: Aventureiro não encontrado", HttpStatus.NOT_FOUND);
@@ -68,7 +66,7 @@ public class AventureiroController {
 
     // Requests Companheiro
     @PatchMapping("/{id}/adicionarCompanheiro")
-    public ResponseEntity<?> adicionarCompanheiro(@PathVariable Integer id ,@RequestBody Companheiro companheiro) {
+    public ResponseEntity<?> adicionarCompanheiro(@PathVariable Long id ,@RequestBody Companheiro companheiro) {
         Optional<Aventureiro> aventureiro = aventureiroService.listarAventureiroPorId(id);
         if (aventureiro.isEmpty()) {
             return new ResponseEntity<>("ERRO: Aventureiro não encontrado", HttpStatus.FORBIDDEN);
@@ -81,7 +79,7 @@ public class AventureiroController {
     }
 
     @PatchMapping("/{id}/removerCompanheiro")
-    public ResponseEntity<?> removerCompanheiro(@PathVariable Integer id){
+    public ResponseEntity<?> removerCompanheiro(@PathVariable Long id){
         Optional<Aventureiro> aventureiro = aventureiroService.listarAventureiroPorId(id);
         if (aventureiro.isEmpty()) {
             return new ResponseEntity<>("ERRO: Aventureiro não encontrado", HttpStatus.FORBIDDEN);

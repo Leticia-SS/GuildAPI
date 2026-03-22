@@ -6,20 +6,34 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "aventureiros")
+@Table(name = "aventureiros") //schema = "aventura"
 public class Aventureiro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
+    @ManyToOne
+    @JoinColumn(
+            name = "organizacao_id",
+            nullable = false
+    )
+    private Organizacao organizacao;
+    @Column(length = 120, nullable = false)
     private String nome;
     @Enumerated(EnumType.STRING)
     private ClasseEnum classe;
-    private Integer nivel;
+    private Integer nivel = 1;
+    @Column(nullable = false)
     private boolean ativo;
+    @Column(updatable = false, nullable = false)
+    private LocalDateTime created_at = LocalDateTime.now();
+    @Column(nullable = false)
+    private LocalDateTime updated_at;
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "nome", column = @Column(name = "companheiro_nome")),

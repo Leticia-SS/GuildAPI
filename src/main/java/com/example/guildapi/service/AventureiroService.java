@@ -19,7 +19,7 @@ public class AventureiroService {
         return aventureiroRepository.findAll();
     }
 
-    public Optional<Aventureiro> listarAventureiroPorId(Integer id) {
+    public Optional<Aventureiro> listarAventureiroPorId(Long id) {
         return aventureiroRepository.findById(id);
     }
 
@@ -34,7 +34,7 @@ public class AventureiroService {
         aventureiroRepository.save(aventureiro);
     }
 
-    public void atualizarAventureiro(Integer id, String nome, ClasseEnum classe, Integer nivel){
+    public void atualizarAventureiro(Long id, String nome, ClasseEnum classe, Integer nivel){
         Optional<Aventureiro> aventureiro = aventureiroRepository.findById(id);
         if (aventureiro.isPresent()) {
             if (nome != null) {
@@ -52,7 +52,7 @@ public class AventureiroService {
         }
     }
 
-    public void desativarAventureiro(Integer id) {
+    public void desativarAventureiro(Long id) {
         Optional<Aventureiro> aventureiro = aventureiroRepository.findById(id);
         if (aventureiro.isPresent()){
             aventureiro.get().setAtivo(false);
@@ -60,7 +60,7 @@ public class AventureiroService {
         }
     }
 
-    public void ativarAventureiro(Integer id) {
+    public void ativarAventureiro(Long id) {
         Optional<Aventureiro> aventureiro = aventureiroRepository.findById(id);
         if (aventureiro.isPresent()){
             aventureiro.get().setAtivo(true);
@@ -69,13 +69,13 @@ public class AventureiroService {
     }
 
     // Gerenciamento do Companheiro
-    public void adicionarCompanheiro(Integer id, Companheiro companheiro) {
+    public void adicionarCompanheiro(Long id, Companheiro companheiro) {
         Optional<Aventureiro> aventureiro = aventureiroRepository.findById(id);
         aventureiro.get().setCompanheiro(companheiro);
         aventureiroRepository.save(aventureiro.get());
     }
 
-    public void deletarCompanheiro(Integer id) {
+    public void deletarCompanheiro(Long id) {
         Optional<Aventureiro> aventureiro = aventureiroRepository.findById(id);
         aventureiro.get().setCompanheiro(null);
         aventureiroRepository.save(aventureiro.get());
