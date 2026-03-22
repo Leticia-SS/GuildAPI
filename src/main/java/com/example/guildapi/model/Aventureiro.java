@@ -2,6 +2,7 @@ package com.example.guildapi.model;
 
 import com.example.guildapi.model.Enum.ClasseEnum;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,7 @@ public class Aventureiro {
     private String nome;
     @Enumerated(EnumType.STRING)
     private ClasseEnum classe;
+    @Min(1)
     private Integer nivel = 1;
     @Column(nullable = false)
     private boolean ativo;
