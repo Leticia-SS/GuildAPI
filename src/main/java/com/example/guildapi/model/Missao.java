@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "missoes") //schema = "aventura"
 public class Missao {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
