@@ -27,6 +27,7 @@ public class Aventureiro {
     @Column(length = 120, nullable = false)
     private String nome;
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private ClasseEnum classe;
     @Min(1)
     private Integer nivel = 1;
