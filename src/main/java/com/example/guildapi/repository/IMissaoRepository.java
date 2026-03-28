@@ -1,4 +1,7 @@
 package com.example.guildapi.repository;
 
-public interface IMissaoRepository {
+import com.example.guildapi.model.Missao;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface IMissaoRepository extends JpaRepository<Missao, Long> {
 }
