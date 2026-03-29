@@ -1,7 +1,7 @@
 package com.example.guildapi.controller;
 
-import com.example.guildapi.model.Aventureiro;
-import com.example.guildapi.model.Companheiro;
+import com.example.guildapi.model.aventura.Aventureiro;
+import com.example.guildapi.model.aventura.Companheiro;
 import com.example.guildapi.service.AventureiroService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

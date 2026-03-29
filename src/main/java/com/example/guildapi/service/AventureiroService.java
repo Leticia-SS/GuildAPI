@@ -1,8 +1,8 @@
 package com.example.guildapi.service;
 
-import com.example.guildapi.model.Aventureiro;
-import com.example.guildapi.model.Companheiro;
-import com.example.guildapi.model.Enum.ClasseEnum;
+import com.example.guildapi.model.aventura.Aventureiro;
+import com.example.guildapi.model.aventura.Companheiro;
+import com.example.guildapi.model.enums.ClasseEnum;
 import com.example.guildapi.repository.IAventureiroRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

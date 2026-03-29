@@ -1,6 +1,6 @@
-package com.example.guildapi.model;
+package com.example.guildapi.model.aventura;
 
-import com.example.guildapi.model.Enum.EspecieEnum;
+import com.example.guildapi.model.enums.EspecieEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;

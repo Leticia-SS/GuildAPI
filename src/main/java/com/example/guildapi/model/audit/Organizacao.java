@@ -1,4 +1,4 @@
-package com.example.guildapi.model;
+package com.example.guildapi.model.audit;
 
 import jakarta.persistence.*;
 import lombok.*;

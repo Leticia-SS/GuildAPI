@@ -1,6 +1,7 @@
-package com.example.guildapi.model;
+package com.example.guildapi.model.aventura;
 
-import com.example.guildapi.model.Enum.ClasseEnum;
+import com.example.guildapi.model.audit.Organizacao;
+import com.example.guildapi.model.enums.ClasseEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;

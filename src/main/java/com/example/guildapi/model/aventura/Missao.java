@@ -1,7 +1,8 @@
-package com.example.guildapi.model;
+package com.example.guildapi.model.aventura;
 
-import com.example.guildapi.model.Enum.NivelPerigoEnum;
-import com.example.guildapi.model.Enum.StatusEnum;
+import com.example.guildapi.model.audit.Organizacao;
+import com.example.guildapi.model.enums.NivelPerigoEnum;
+import com.example.guildapi.model.enums.StatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
