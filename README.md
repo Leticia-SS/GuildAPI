@@ -10,8 +10,8 @@ O objetivo é demonstrar a capacidade de mapear um banco existente utilizando JP
 
 ## 🏗️ Tecnologias Utilizadas
 
-- Java 23
-- Spring Boot 4
+- Java 21
+- Spring Boot 
 - Spring Data JPA
 - Hibernate
 - PostgreSQL (Docker)
