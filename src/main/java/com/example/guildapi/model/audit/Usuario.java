@@ -11,7 +11,14 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "usuarios", schema = "audit")
+@Table(name = "usuarios",
+        schema = "audit",
+        uniqueConstraints = {
+            @UniqueConstraint(
+                    name = "uq_usuarios_email_por_org",
+                    columnNames = {"organizacao_id", "email"}
+            )
+})
 public class Usuario {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -10,7 +10,14 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "roles", schema = "audit")
+@Table(name = "roles",
+        schema = "audit",
+        uniqueConstraints = {
+            @UniqueConstraint(
+                    name = "uq_roles_nome_por_org",
+                    columnNames = {"organizacao_id", "nome"}
+            )
+})
 public class Role {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
