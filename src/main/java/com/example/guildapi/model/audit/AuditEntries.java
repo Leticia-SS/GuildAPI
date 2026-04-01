@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Getter@Setter
+@Getter
+@Setter
 @Table(name = "audit_entries", schema = "audit")
 public class AuditEntries {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +37,7 @@ public class AuditEntries {
     private String ip;
     @Column(name = "user_agent", length = 255)
     private String userAgent;
+    @Column(name = "diff", columnDefinition = "jsonb")
     private String diff;
     private String metadata;
     @Column(nullable = false)
