@@ -5,6 +5,10 @@ import com.example.guildapi.model.aventura.Companheiro;
 import com.example.guildapi.model.enums.ClasseEnum;
 import com.example.guildapi.repository.IAventureiroRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,11 +27,34 @@ public class AventureiroService {
         return aventureiroRepository.findById(id);
     }
 
-    public List<Aventureiro> paginar(List<Aventureiro> base, int page, int size) {
-        int total = base.size();
-        int from = page * size;
-        int to = Math.min(from + size, total);
-        return base.subList(from,to);
+    public Page<Aventureiro> listarAventureirosPaginado(int page, int size) {
+        if (size < 1 || size > 50) {
+            throw new IllegalArgumentException("size deve estar entre 1 e 50");
+        }
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+        return aventureiroRepository.findAll(pageable);
+    }
+
+    public Page<Aventureiro> listarAventureirosComFiltro(
+            ClasseEnum classe,
+            Boolean ativo,
+            Integer nivelMinimo,
+            int page,
+            int size) {
+        if (size < 1 || size > 50) {
+            throw new IllegalArgumentException("size deve estar entre 1 e 50");
+        }
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+        if (classe != null) {
+            return aventureiroRepository.findByClasse(classe, pageable);
+        }
+        if (ativo != null) {
+            return aventureiroRepository.findByAtivo(ativo, pageable);
+        }
+        if (nivelMinimo != null) {
+            return aventureiroRepository.findByNivelGreaterThanEqual(nivelMinimo, pageable);
+        }
+        return aventureiroRepository.findAll(pageable);
     }
 
     public void adicionarAventureiro(Aventureiro aventureiro){
@@ -68,7 +95,6 @@ public class AventureiroService {
         }
     }
 
-    // Gerenciamento do Companheiro
     public void adicionarCompanheiro(Long id, Companheiro companheiro) {
         Optional<Aventureiro> aventureiro = aventureiroRepository.findById(id);
         aventureiro.get().setCompanheiro(companheiro);
