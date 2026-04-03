@@ -2,8 +2,10 @@ package com.example.guildapi.controller;
 
 import com.example.guildapi.model.aventura.Aventureiro;
 import com.example.guildapi.model.aventura.Companheiro;
+import com.example.guildapi.model.enums.ClasseEnum;
 import com.example.guildapi.service.AventureiroService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +19,38 @@ import java.util.Optional;
 public class AventureiroController {
     private final AventureiroService aventureiroService;
 
+    @GetMapping("/todos")
+    public ResponseEntity<Page<Aventureiro>> listarTodosPaginado(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        Page<Aventureiro> pageResult = aventureiroService.listarAventureirosPaginado(page, size);
+
+        return ResponseEntity.ok()
+                .header("X-Total-Count", String.valueOf(pageResult.getTotalElements()))
+                .header("X-Page", String.valueOf(pageResult.getNumber()))
+                .header("X-Size", String.valueOf(pageResult.getSize()))
+                .header("X-Total-Pages", String.valueOf(pageResult.getTotalPages()))
+                .body(pageResult);
+    }
+
     @GetMapping
-    public ResponseEntity<List<Aventureiro>> listarTodos(@RequestHeader(value = "X-Page", defaultValue = "0") int page, @RequestHeader(value = "X-Size" , defaultValue = "10") int size){
-        return ResponseEntity.ok(aventureiroService.paginar(aventureiroService.listarAventureiros(),page,size));
+    public ResponseEntity<Page<Aventureiro>> listarAventureirosComFiltros(
+            @RequestParam(required = false) ClasseEnum classe,
+            @RequestParam(required = false) Boolean ativo,
+            @RequestParam(required = false) Integer nivelMinimo,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        Page<Aventureiro> pageResult = aventureiroService.listarAventureirosComFiltro(
+                classe, ativo, nivelMinimo, page, size);
+
+        return ResponseEntity.ok()
+                .header("X-Total-Count", String.valueOf(pageResult.getTotalElements()))
+                .header("X-Page", String.valueOf(pageResult.getNumber()))
+                .header("X-Size", String.valueOf(pageResult.getSize()))
+                .header("X-Total-Pages", String.valueOf(pageResult.getTotalPages()))
+                .body(pageResult);
     }
 
     @GetMapping("/{id}")
