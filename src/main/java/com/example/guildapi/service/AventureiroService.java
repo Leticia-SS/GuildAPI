@@ -74,7 +74,6 @@ public class AventureiroService {
     public AventureiroResumoDto atualizarAventureiro(Long id, String nome, ClasseEnum classe, Integer nivel) {
         Aventureiro aventureiro = aventureiroRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Aventureiro não encontrado com ID: " + id));
-
         if (nome != null && !nome.isBlank()) {
             aventureiro.setNome(nome);
         }
@@ -84,7 +83,6 @@ public class AventureiroService {
         if (nivel != null && nivel >= 1) {
             aventureiro.setNivel(nivel);
         }
-
         Aventureiro updated = aventureiroRepository.save(aventureiro);
         return converterParaResumoDto(updated);
     }
@@ -110,7 +108,6 @@ public class AventureiroService {
         companheiro.setNome(request.getNome());
         companheiro.setEspecie(request.getEspecie());
         companheiro.setLealdade(request.getLealdade());
-
         aventureiro.setCompanheiro(companheiro);
         aventureiroRepository.save(aventureiro);
     }
@@ -121,7 +118,6 @@ public class AventureiroService {
         aventureiro.setCompanheiro(null);
         aventureiroRepository.save(aventureiro);
     }
-
     private AventureiroResumoDto converterParaResumoDto(Aventureiro aventureiro) {
         return new AventureiroResumoDto(
                 aventureiro.getId(),
