@@ -13,5 +13,6 @@ public class AventureiroDetalheDto {
     private boolean ativo;
     private Companheiro companheiro;
     private String nomeOrganizacao;
-    private String nomeUsuarioCadastro;
+    private Long totalParticipacoes;
+    private MissaoResumoDto ultimaMissao;
 }
