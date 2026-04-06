@@ -26,8 +26,8 @@ public class ParticipacaoDeMissaoService {
     public Page<RankingParticipacaoDto> gerarRanking(LocalDateTime startDate, LocalDateTime endDate, StatusEnum statusMissao, int page, int size) {
         List<ParticipacaoMissao> missoesTotal = participacaoDeMissaoRepository.findAll();
         List<ParticipacaoMissao> missoesFiltradas = missoesTotal.stream()
-                .filter(p -> startDate == null || !p.getCreated_At().isBefore(startDate))
-                .filter(p -> endDate== null || !p.getCreated_At().isAfter(endDate))
+                .filter(p -> startDate == null || !p.getCreatedAt().isBefore(startDate))
+                .filter(p -> endDate== null || !p.getCreatedAt().isAfter(endDate))
                 .filter(p -> statusMissao== null || p.getMissao().getStatus() == statusMissao)
                 .toList();
         Map<Long, RankingParticipacaoDto> map = new HashMap<>();
@@ -57,8 +57,8 @@ public class ParticipacaoDeMissaoService {
     public Page<RelatorioMissaoDto> gerarRelatorioMissoes(LocalDateTime startDate, LocalDateTime endDate, int page, int size) {
         List<ParticipacaoMissao> missoesTotal = participacaoDeMissaoRepository.findAll();
         List<ParticipacaoMissao> missoesFiltradas = missoesTotal.stream()
-                .filter(p -> startDate == null || !p.getCreated_At().isBefore(startDate))
-                .filter(p -> endDate == null || !p.getCreated_At().isAfter(endDate))
+                .filter(p -> startDate == null || !p.getCreatedAt().isBefore(startDate))
+                .filter(p -> endDate == null || !p.getCreatedAt().isAfter(endDate))
                 .toList();
         Map<Long, RelatorioMissaoDto> map = new HashMap<>();
         missoesFiltradas.forEach(p -> {

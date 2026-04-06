@@ -141,7 +141,7 @@ public class AventureiroService {
         }
         Long aventureiroId = aventureiro.getId();
         dto.setTotalParticipacoes(participacaoDeMissaoRepository.countByAventureiroId(aventureiroId));
-        participacaoDeMissaoRepository.findTopByAventureiroIdOrderByCreated_AtDesc(aventureiroId)
+        participacaoDeMissaoRepository.findTopByAventureiroIdOrderByCreatedAtDesc(aventureiroId)
                 .ifPresent(participacao -> {
                     MissaoResumoDto missaoDto = new MissaoResumoDto();
                     missaoDto.setTitulo(participacao.getMissao().getTitulo());

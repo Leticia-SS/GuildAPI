@@ -25,8 +25,8 @@ public class Missao {
     private NivelPerigoEnum nivelPerigo;
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
-    @Column(updatable = false)
-    private LocalDateTime created_at = LocalDateTime.now();
-    private LocalDateTime start_time;
-    private LocalDateTime end_time;
+    @Column(updatable = false, name = "created_at")
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 }

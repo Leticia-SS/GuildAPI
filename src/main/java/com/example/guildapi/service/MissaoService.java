@@ -30,15 +30,7 @@ public class MissaoService {
     public Page<MissaoListagemDto> listarMissoes(StatusEnum status, NivelPerigoEnum nivelPerigo, LocalDateTime startDate, LocalDateTime endDate, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
         Page<Missao> pageResult;
-        if (status != null && nivelPerigo != null && startDate != null && endDate != null) {
-            pageResult = missaoRepository.findByStatusAndNivelPerigoAndCreatedAtBetween(status, nivelPerigo, startDate, endDate, pageable);
-        } else if (status != null && nivelPerigo != null) {
-            pageResult = missaoRepository.findByStatusAndNivelPerigo(status, nivelPerigo, pageable);
-        } else if (status != null && startDate != null && endDate != null) {
-            pageResult = missaoRepository.findByStatusAndCreatedAtBetween(status, startDate, endDate, pageable);
-        } else if (nivelPerigo != null && startDate != null && endDate != null) {
-            pageResult = missaoRepository.findByNivelPerigoAndCreatedAtBetween(nivelPerigo, startDate, endDate, pageable);
-        } else if (status != null) {
+        if (status != null) {
             pageResult = missaoRepository.findByStatus(status, pageable);
         } else if (nivelPerigo != null) {
             pageResult = missaoRepository.findByNivelPerigo(nivelPerigo, pageable);
@@ -69,9 +61,9 @@ public class MissaoService {
         dto.setTitulo(missao.getTitulo());
         dto.setStatus(missao.getStatus());
         dto.setNivelPerigo(missao.getNivelPerigo());
-        dto.setCreatedAt(missao.getCreated_at());
-        dto.setStartTime(missao.getStart_time());
-        dto.setEndTime(missao.getEnd_time());
+        dto.setCreatedAt(missao.getCreatedAt());
+        dto.setStartTime(missao.getStartTime());
+        dto.setEndTime(missao.getEndTime());
         if (missao.getOrganizacao() != null) {
             dto.setNomeOrganizacao(missao.getOrganizacao().getNome());
         }
@@ -85,9 +77,9 @@ public class MissaoService {
         dto.setTitulo(m.getTitulo());
         dto.setStatus(m.getStatus());
         dto.setNivelPerigo(m.getNivelPerigo());
-        dto.setCreatedAt(m.getCreated_at());
-        dto.setStartTime(m.getStart_time());
-        dto.setEndTime(m.getEnd_time());
+        dto.setCreatedAt(m.getCreatedAt());
+        dto.setStartTime(m.getStartTime());
+        dto.setEndTime(m.getEndTime());
         return dto;
     }
 

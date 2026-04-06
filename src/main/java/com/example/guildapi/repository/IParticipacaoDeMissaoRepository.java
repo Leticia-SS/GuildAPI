@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface IParticipacaoDeMissaoRepository extends JpaRepository<ParticipacaoMissao, Long> {
     long countByAventureiroId(Long aventureiroId);
-    Optional<ParticipacaoMissao> findTopByAventureiroIdOrderByCreated_AtDesc(Long aventureiroId);
+    Optional<ParticipacaoMissao> findTopByAventureiroIdOrderByCreatedAtDesc(Long aventureiroId);
     List<ParticipacaoMissao> findByMissaoId(Long missaoId);
 }

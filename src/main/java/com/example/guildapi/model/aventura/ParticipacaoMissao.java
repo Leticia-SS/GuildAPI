@@ -28,6 +28,7 @@ public class ParticipacaoMissao {
     private Integer recompensa;
     @Column(nullable = false)
     private boolean mvp;
-    private LocalDateTime created_At = LocalDateTime.now();
+    @Column(name = "created_at")
+    private LocalDateTime createdAt = LocalDateTime.now();
 
 }
