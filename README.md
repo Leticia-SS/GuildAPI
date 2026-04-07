@@ -23,24 +23,20 @@ O objetivo é demonstrar a capacidade de mapear um banco existente utilizando JP
 
 ## 🗄️ Banco de Dados
 
-O sistema utiliza um banco PostgreSQL. Para isso use a imagem do docker para o exercicio, mostrada abaixo.
-
-### Imagem Docker
-
-    ```bash
-    docker run -d --name guild-postgres -e POSTGRES_USER=appuser -e POSTGRES_PASSWORD=apppass -e POSTGRES_DB=guilddb -p 5433:5432 leogloriainfnet/postgres-tp2-spring:1.0
+O sistema utiliza um banco PostgreSQL. Para isso use a imagem do docker para o exercicio, baseada na imagem leogloriainfnet/postgres-tp2-spring:1.0.
 
 # 🚀 Como Executar o Projeto
 
 ## Subir o Banco de Dados com Docker Compose
   Suba o docker com o comando abaixo e em seguida rode a aplicação clonada.
   
-    ```bash
-    docker run -d --name guild-postgres -e POSTGRES_USER=appuser -e POSTGRES_PASSWORD=appuser -e POSTGRES_DB=guilddb -p 5433:5432 leogloriainfnet/postgres-tp2-spring:1.0
+```bash
+    docker run -d --name guild-postgres -e POSTGRES_USER=appuser -e POSTGRES_PASSWORD=apppass -e POSTGRES_DB=guilddb -p 5433:5432 leogloriainfnet/postgres-tp2-spring:1.0
+```
 
 # 📁 Estrutura do Projeto
 
-    ```text
+```text
     src/main/java/com/example/guildapi/
     ├── advice/              # Exceções personalizadas
     ├── controller/          # Endpoints REST
@@ -51,6 +47,7 @@ O sistema utiliza um banco PostgreSQL. Para isso use a imagem do docker para o e
     │   └── aventura/        # Novo domínio
         └── enums/           # Enumeradores
     ├── dto/                 # Data Transfer Objects
+```
 
 # 🧪 Endpoints da API
 
