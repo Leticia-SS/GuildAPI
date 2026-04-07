@@ -40,6 +40,7 @@ O sistema utiliza um banco PostgreSQL. Para isso use a imagem do docker para o e
     src/main/java/com/example/guildapi/
     ├── advice/              # Exceções personalizadas
     ├── controller/          # Endpoints REST
+    ├── exceptions/          # Exceções personalizadas
     ├── service/             # Regras de negócio
     ├── repository/          # Acesso a dados (JPA)
     ├── model/
