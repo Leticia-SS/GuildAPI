@@ -3,6 +3,7 @@ package com.example.guildapi.controller;
 import com.example.guildapi.dto.MissaoCadastroDto;
 import com.example.guildapi.dto.MissaoDetalheDto;
 import com.example.guildapi.dto.MissaoListagemDto;
+import com.example.guildapi.dto.MissaoUpdateRequestDto;
 import com.example.guildapi.model.enums.NivelPerigoEnum;
 import com.example.guildapi.model.enums.StatusEnum;
 import com.example.guildapi.service.MissaoService;
@@ -42,6 +43,12 @@ public class MissaoController {
     public ResponseEntity<MissaoListagemDto> criarMissao(@Valid @RequestBody MissaoCadastroDto request) {
         MissaoListagemDto dto = missaoService.criarMissao(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<MissaoListagemDto> atualizarMissao(@PathVariable Long id, @Valid @RequestBody MissaoUpdateRequestDto request) {
+        MissaoListagemDto dto = missaoService.atualizarMissao(id, request);
+        return ResponseEntity.ok(dto);
     }
 
     private <T> ResponseEntity<Page<T>> responderComPaginacao(Page<T> pageResult) {

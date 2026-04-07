@@ -1,24 +1,37 @@
 package com.example.guildapi.controller;
 
+import com.example.guildapi.dto.ParticipacaoRequestDto;
+import com.example.guildapi.dto.ParticipacaoResponseDto;
 import com.example.guildapi.dto.RankingParticipacaoDto;
 import com.example.guildapi.dto.RelatorioMissaoDto;
 import com.example.guildapi.model.enums.StatusEnum;
 import com.example.guildapi.service.ParticipacaoDeMissaoService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/relatorios")
+@RequestMapping("/participacoes")
 public class ParticipacaoMissaoController {
     private final ParticipacaoDeMissaoService participacaoDeMissaoService;
+
+    @PostMapping
+    public ResponseEntity<ParticipacaoResponseDto> adicionarParticipacao(@Valid @RequestBody ParticipacaoRequestDto request) {
+        ParticipacaoResponseDto response = participacaoDeMissaoService.adicionarAventureiroNaMissao(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> removerParticipacao(@RequestParam Long missaoId, @RequestParam Long aventureiroId) {
+        participacaoDeMissaoService.removerAventureiroDaMissao(missaoId, aventureiroId);
+        return ResponseEntity.noContent().build();
+    }
 
     @GetMapping("/ranking")
     public ResponseEntity<Page<RankingParticipacaoDto>> gerarRanking(@RequestParam(required = false) LocalDateTime startDate,
