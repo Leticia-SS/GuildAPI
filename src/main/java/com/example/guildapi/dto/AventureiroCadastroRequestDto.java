@@ -16,4 +16,6 @@ public class AventureiroCadastroRequestDto {
     private ClasseEnum classe;
     @Min(value = 1, message = "Nível deve ser maior ou igual a 1")
     private Integer nivel = 1;
+    @NotNull(message = "ID da organização é obrigatório")
+    private Long organizacaoId;
 }

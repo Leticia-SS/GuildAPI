@@ -5,6 +5,7 @@ import com.example.guildapi.dto.AventureiroDetalheDto;
 import com.example.guildapi.dto.AventureiroResumoDto;
 import com.example.guildapi.dto.MissaoResumoDto;
 import com.example.guildapi.exceptions.EntityNotFoundException;
+import com.example.guildapi.model.audit.Organizacao;
 import com.example.guildapi.model.aventura.Aventureiro;
 import com.example.guildapi.model.aventura.Companheiro;
 import com.example.guildapi.model.enums.ClasseEnum;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +27,7 @@ import java.util.Optional;
 public class AventureiroService {
     private final IAventureiroRepository aventureiroRepository;
     private final IParticipacaoDeMissaoRepository participacaoDeMissaoRepository;
+    private final OrganizacaoService organizacaoService;
 
 
     public AventureiroDetalheDto listarAventureiroPorId(Long id) {
@@ -61,12 +64,16 @@ public class AventureiroService {
     }
 
     public AventureiroResumoDto adicionarAventureiro(AventureiroCadastroRequestDto request) {
+        Organizacao organizacao = organizacaoService.buscarPorId(request.getOrganizacaoId());
         Aventureiro aventureiro = new Aventureiro();
         aventureiro.setNome(request.getNome());
         aventureiro.setClasse(request.getClasse());
         aventureiro.setNivel(request.getNivel());
         aventureiro.setAtivo(true);
         aventureiro.setCompanheiro(null);
+        aventureiro.setOrganizacao(organizacao);
+        aventureiro.setCreatedAt(LocalDateTime.now());
+        aventureiro.setUpdatedAt(LocalDateTime.now());
         Aventureiro saved = aventureiroRepository.save(aventureiro);
         return converterParaResumoDto(saved);
     }
@@ -83,6 +90,7 @@ public class AventureiroService {
         if (nivel != null && nivel >= 1) {
             aventureiro.setNivel(nivel);
         }
+        aventureiro.setUpdatedAt(LocalDateTime.now());
         Aventureiro updated = aventureiroRepository.save(aventureiro);
         return converterParaResumoDto(updated);
     }

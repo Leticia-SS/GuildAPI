@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
@@ -34,10 +36,11 @@ public class Aventureiro {
     private Integer nivel = 1;
     @Column(nullable = false)
     private boolean ativo;
+    @CreatedDate
     @Column(updatable = false, nullable = false)
-    private LocalDateTime created_at = LocalDateTime.now();
+    private LocalDateTime createdAt;
     @Column(nullable = false)
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "nome", column = @Column(name = "companheiro_nome")),
