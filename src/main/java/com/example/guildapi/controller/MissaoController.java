@@ -1,10 +1,12 @@
 package com.example.guildapi.controller;
 
+import com.example.guildapi.dto.MissaoCadastroDto;
 import com.example.guildapi.dto.MissaoDetalheDto;
 import com.example.guildapi.dto.MissaoListagemDto;
 import com.example.guildapi.model.enums.NivelPerigoEnum;
 import com.example.guildapi.model.enums.StatusEnum;
 import com.example.guildapi.service.MissaoService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -34,6 +36,12 @@ public class MissaoController {
     public ResponseEntity<MissaoDetalheDto> buscarMissaoPorId(@PathVariable Long id) {
         MissaoDetalheDto dto = missaoService.buscarMissaoPorId(id);
         return ResponseEntity.status(HttpStatus.OK).body(dto);
+    }
+
+    @PostMapping
+    public ResponseEntity<MissaoListagemDto> criarMissao(@Valid @RequestBody MissaoCadastroDto request) {
+        MissaoListagemDto dto = missaoService.criarMissao(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
     private <T> ResponseEntity<Page<T>> responderComPaginacao(Page<T> pageResult) {
