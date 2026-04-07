@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:17.8-alpine3.23
+    image: leogloriainfnet/postgres-tp2-spring:1.0
     container_name: guild-postgres
     environment:
       POSTGRES_USER: appuser
