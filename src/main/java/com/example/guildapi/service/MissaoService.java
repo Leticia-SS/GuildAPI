@@ -1,9 +1,6 @@
 package com.example.guildapi.service;
 
-import com.example.guildapi.dto.MissaoCadastroDto;
-import com.example.guildapi.dto.MissaoDetalheDto;
-import com.example.guildapi.dto.MissaoListagemDto;
-import com.example.guildapi.dto.ParticipanteDto;
+import com.example.guildapi.dto.*;
 import com.example.guildapi.exceptions.EntityNotFoundException;
 import com.example.guildapi.model.audit.Organizacao;
 import com.example.guildapi.model.aventura.Missao;
@@ -101,13 +98,18 @@ public class MissaoService {
             missao.setStatus(request.getStatus());
         }
         if (request.getStartTime() != null) {
-            missao.setStart_time(request.getStartTime());
+            missao.setStartTime(request.getStartTime());
         }
         if (request.getEndTime() != null) {
-            missao.setEnd_time(request.getEndTime());
+            missao.setEndTime(request.getEndTime());
         }
         Missao updated = missaoRepository.save(missao);
         return toListagemDto(updated);
+    }
+
+    public boolean isMissaoAceitaParticipantes(Missao missao) {
+        StatusEnum status = missao.getStatus();
+        return status == StatusEnum.PLANEJADA || status == StatusEnum.EM_ANDAMENTO;
     }
 
     private MissaoListagemDto toListagemDto(Missao m) {

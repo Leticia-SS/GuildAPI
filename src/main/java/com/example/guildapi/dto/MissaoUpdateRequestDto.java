@@ -7,7 +7,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class MissaoUpdateRequest {
+public class MissaoUpdateRequestDto {
     private String titulo;
     private NivelPerigoEnum nivelPerigo;
     private StatusEnum status;

@@ -10,4 +10,6 @@ public interface IParticipacaoDeMissaoRepository extends JpaRepository<Participa
     long countByAventureiroId(Long aventureiroId);
     Optional<ParticipacaoMissao> findTopByAventureiroIdOrderByCreatedAtDesc(Long aventureiroId);
     List<ParticipacaoMissao> findByMissaoId(Long missaoId);
+    boolean existsByMissaoIdAndAventureiroId(Long missaoId, Long aventureiroId);
+    Optional<ParticipacaoMissao> findByMissaoIdAndAventureiroId(Long missaoId, Long aventureiroId);
 }
