@@ -12,5 +12,13 @@ services:
       - guild_pgdata:/var/lib/postgresql/data
       - ./init/:/docker-entrypoint-initdb.d
 
+  elasticsearch:
+    image: leogloriainfnet/elastic-tp2-spring:1.0-alternativo
+    container_name: guilda-es
+    ports:
+      - "9200:9200"
+    environment:
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+
 volumes:
   guild_pgdata:
