@@ -12,6 +12,11 @@ spring:
       hibernate:
         format-sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  cache:
+    type: caffeine
+    cache-names: topMissoes
+    caffeine:
+      spec: expireAfterWrite=300s
 
 server:
   port: 9095

@@ -3,6 +3,7 @@ package com.example.guildapi.service;
 import com.example.guildapi.model.operacoes.PainelTaticoMissao;
 import com.example.guildapi.repository.PainelTaticoMissaoRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ import java.util.List;
 public class PainelTaticoMissaoService {
     private final PainelTaticoMissaoRepository painelTaticoMissaoRepository;
 
+    @Cacheable(value = "topMissoes", unless = "#result.isEmpty()")
     public List<PainelTaticoMissao> listarTopMissoesUltimos15Dias() {
         LocalDateTime dataLimite = LocalDateTime.now().minusDays(15);
         return painelTaticoMissaoRepository.findTop10ByUltimaAtualizacaoAfterOrderByIndiceProntidaoDesc(dataLimite);
