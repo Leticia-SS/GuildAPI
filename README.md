@@ -5,7 +5,7 @@
 Este projeto consiste na evolução de um sistema de gestão de aventureiros, integrando um banco de dados legado (`schema audit`) com um novo domínio (`schema aventura`).  
 Além disso, foram implementados:
 
-- **Consultas estratégicas** sobre missões usando uma **materialized view** (ou view comum) com cache para melhor desempenho.
+- **Consultas estratégicas** sobre missões usando uma view com cache para melhor desempenho.
 - **Marketplace da Guilda** com buscas textuais, filtros e agregações utilizando **Elasticsearch**.
 
 O objetivo é demonstrar a capacidade de mapear bancos relacionais e de busca, respeitando regras de negócio e boas práticas de arquitetura.
@@ -181,6 +181,9 @@ Com isso, a primeira requisição após a expiração executa a consulta pesada;
 - `vw_painel_tatico_missao` – View (ou materialized view) com métricas estratégicas das missões.
 
 ---
+
+# Anexo
+Segue o anexo dos prints de testes do Elasticsearch [Screenshots_AT.pdf](https://github.com/user-attachments/files/26639702/Screenshots_AT.pdf)
 
 # 👥 Autores
 Trabalho acadêmico feito por Leticia Saraiva - Assessment de Spring Boot
