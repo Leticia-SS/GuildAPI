@@ -1,13 +1,13 @@
 services:
   postgres:
-    image: leogloriainfnet/postgres-tp2-spring:1.0
+    image: leogloriainfnet/postgres-tp2-spring:2.0-win
     container_name: guild-postgres
     environment:
-      POSTGRES_USER: appuser
-      POSTGRES_PASSWORD: appuser
-      POSTGRES_DB: guilddb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - guild_pgdata:/var/lib/postgresql/data
       - ./init/:/docker-entrypoint-initdb.d

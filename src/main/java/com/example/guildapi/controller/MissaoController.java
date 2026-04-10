@@ -6,7 +6,9 @@ import com.example.guildapi.dto.MissaoListagemDto;
 import com.example.guildapi.dto.MissaoUpdateRequestDto;
 import com.example.guildapi.model.enums.NivelPerigoEnum;
 import com.example.guildapi.model.enums.StatusEnum;
+import com.example.guildapi.model.operacoes.PainelTaticoMissao;
 import com.example.guildapi.service.MissaoService;
+import com.example.guildapi.service.PainelTaticoMissaoService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,12 +17,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/missoes")
 public class MissaoController {
     private final MissaoService missaoService;
+    private final PainelTaticoMissaoService painelTaticoMissaoService;
 
     @GetMapping
     public ResponseEntity<Page<MissaoListagemDto>> listarMissoes(@RequestParam(required = false) StatusEnum status,
@@ -59,4 +63,11 @@ public class MissaoController {
                 .header("X-Total-Pages", String.valueOf(pageResult.getTotalPages()))
                 .body(pageResult);
     }
+
+    @GetMapping("/top15dias")
+    public ResponseEntity<List<PainelTaticoMissao>> listarTopMissoesUltimos15Dias() {
+        List<PainelTaticoMissao> missoes = painelTaticoMissaoService.listarTopMissoesUltimos15Dias();
+        return ResponseEntity.ok(missoes);
+    }
+
 }
