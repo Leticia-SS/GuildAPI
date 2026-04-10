@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/produtos")
@@ -41,5 +42,42 @@ public class ProdutoElasticController {
         return produtoElasticService.buscarMultiCampos(termo);
     }
 
+    @GetMapping("/busca/com-filtro")
+    public List<ProdutoElastic> buscarComFiltro(@RequestParam String termo, @RequestParam String categoria) {
+        return produtoElasticService.buscarPorDescricaoECategoria(termo, categoria);
+    }
 
+    @GetMapping("/busca/faixa-preco")
+    public List<ProdutoElastic> buscarPorFaixaPreco(@RequestParam Double min, @RequestParam Double max) {
+        return produtoElasticService.buscarPorFaixaPreco(min, max);
+    }
+
+    @GetMapping("/busca/avancada")
+    public List<ProdutoElastic> buscarAvancada(
+            @RequestParam(required = false) String categoria,
+            @RequestParam(required = false) String raridade,
+            @RequestParam(required = false) Double min,
+            @RequestParam(required = false) Double max) {
+        return produtoElasticService.buscarAvancada(categoria, raridade, min, max);
+    }
+
+    @GetMapping("/agregacoes/por-categoria")
+    public Map<String, Long> contarPorCategoria() {
+        return produtoElasticService.contarPorCategoria();
+    }
+
+    @GetMapping("/agregacoes/por-raridade")
+    public Map<String, Long> contarPorRaridade() {
+        return produtoElasticService.contarPorRaridade();
+    }
+
+    @GetMapping("/agregacoes/preco-medio")
+    public Double precoMedio() {
+        return produtoElasticService.calcularPrecoMedio();
+    }
+
+    @GetMapping("/agregacoes/faixas-preco")
+    public Map<String, Long> faixasPreco() {
+        return produtoElasticService.contarFaixasPreco();
+    }
 }
